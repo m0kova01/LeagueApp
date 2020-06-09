@@ -11,19 +11,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import SummonerService from './shared/api/summoner.service';
 import { HttpClientModule } from '@angular/common/http';
-import { OktaAuthModule, OktaCallbackComponent } from '@okta/okta-angular';
+import { SummonerDetailsComponent } from './home/summoner-details/summoner-details.component';
 
-const config = {
-  issuer: 'https://okta.okta.com/oauth2/default',
-  redirectUri: 'http://localhost:4200/implicit/callback',
-  clientId: '{clientId}'
-};
+
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    SearchComponent
+    SearchComponent,
+    SummonerDetailsComponent
   ],
   imports: [
     HttpClientModule,
@@ -32,8 +29,8 @@ const config = {
     BrowserAnimationsModule,
     MatInputModule,
     MatButtonModule,
-    FormsModule,
-    OktaAuthModule
+    FormsModule
+
   ],
   providers: [HttpClientModule, SummonerService],
   bootstrap: [AppComponent]

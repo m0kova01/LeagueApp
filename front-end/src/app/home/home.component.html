@@ -1,3 +1,10 @@
-<div class="body center">
-  <app-search></app-search>
-</div>
+<ng-container *ngIf="!summoner">
+  <div class="body center">
+    <app-summoner-search (notify)="handleSummoner($event)"></app-summoner-search>
+  </div>
+</ng-container>
+<ng-container *ngIf="summoner">
+  <div class="details">
+    <app-summoner-details [summoner]="summoner"></app-summoner-details>
+  </div>
+</ng-container>
