@@ -1,17 +1,20 @@
-<img
-  src="http://ddragon.leagueoflegends.com/cdn/10.11.1/img/profileicon/{{
-    summoner.profileIconId
-  }}.png"
-  alt="summoner icon"
-/>
-<h1>{{ summoner.name }}</h1>
+<span class="header">
+  <img
+    style="width: 60px; margin-right: 10px;"
+    src="http://ddragon.leagueoflegends.com/cdn/10.11.1/img/profileicon/{{
+      summoner.profileIconId
+    }}.png"
+    alt="summoner icon"
+  />
+  <div>{{ summoner.name }}</div>
+</span>
 <div>
   <table>
     <thead>
-      <tr>
-        <th>Date</th>
-        <th>Lane</th>
-        <th>Champion</th>
+      <tr >
+        <th class="table-header">Date</th>
+        <th class="table-header">Lane</th>
+        <th class="table-header">Champion</th>
       </tr>
     </thead>
     <tbody>
@@ -19,14 +22,16 @@
         <td>{{ match.timestamp | date: "yyyy-MM-dd" }}</td>
         <td>{{ match.lane }}</td>
         <td>
-          <img
-            style="height: 40%; margin-right: 10px;"
-            src="http://ddragon.leagueoflegends.com/cdn/10.11.1/img/champion/{{
-              match.championName
-            }}.png"
-            alt="champ icon"
-          />
-          <label>{{ match.championName }}</label>
+          <div style="display: flex; align-items: center;">
+            <img
+              style="height: 30px; margin-right: 10px;"
+              src="http://ddragon.leagueoflegends.com/cdn/10.11.1/img/champion/{{
+                match.championName
+              }}.png"
+              alt="champ icon"
+            />
+            <label>{{ match.championName }}</label>
+          </div>
         </td>
       </tr>
     </tbody>
