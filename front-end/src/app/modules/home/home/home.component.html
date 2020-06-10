@@ -1,6 +1,8 @@
 <ng-container *ngIf="!summoner">
   <div class="body center">
-    <app-summoner-search (notify)="handleSummoner($event)"></app-summoner-search>
+    <app-summoner-search
+      (notify)="handleSummoner($event)"
+    ></app-summoner-search>
   </div>
 </ng-container>
 <ng-container *ngIf="summoner">

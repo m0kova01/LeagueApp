@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import SummonerModel from '../shared/models/summoner-model';
+import SummonerModel from '../../../shared/models/summoner-model';
 
 @Component({
   selector: 'app-home',

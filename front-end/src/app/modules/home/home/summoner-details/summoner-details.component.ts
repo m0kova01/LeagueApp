@@ -53,6 +53,5 @@ export class SummonerDetailsComponent implements OnInit {
         }
       });
     });
-    console.log(this.matches)
   }
 }
