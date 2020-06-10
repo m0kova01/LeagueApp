@@ -20,7 +20,7 @@ export class SummonerDetailsComponent implements OnInit {
   constructor(public activatedRoute: ActivatedRoute, private summonerService: SummonerService) { }
 
   ngOnInit(): void {
-    this.summoner = history.state.data
+    this.summoner = history.state.data;
     this.loadChampionDetails();
   }
 
