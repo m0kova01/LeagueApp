@@ -1,0 +1,15 @@
+<div class="row" [ngClass]="color" (mouseover)="changeStyle($event)" (mouseout)="changeStyle($event)">
+    <div class="column">{{match.timestamp | date: 'shortDate'}}</div>
+    <div class="column">{{match.lane}}</div>
+    <div class="column">
+        <div style="display: flex; align-items: center;">
+            <img style="height: 30px; margin-right: 10px;" src="http://ddragon.leagueoflegends.com/cdn/10.11.1/img/champion/{{
+            match.championName
+          }}.png" alt="champ icon" />
+            <label>{{ match.championName }}</label>
+        </div>
+    </div>
+    <div class="column">
+        <button mat-raised-button>More Details</button>
+    </div>
+</div>

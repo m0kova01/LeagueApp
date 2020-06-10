@@ -1,0 +1,25 @@
+.row {
+    display: flex;
+    align-items: center;
+    border: 1px solid white;
+    padding-top: 30px;
+    padding-bottom: 20px;
+    padding-right: 80px;
+    padding-left: 80px;
+    background-color: #A8DADC;
+}
+
+.column {
+    width: 110px;
+    display: flex;
+    justify-content: center;
+}
+
+.hover {
+    cursor: pointer;
+    background-color: #b3e6e8;
+}
+
+.normal {
+    background-color: #A8DADC;
+}

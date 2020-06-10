@@ -5,6 +5,11 @@
   <div>{{ summoner.name }}</div>
 </span>
 <div class="table">
+  <div *ngFor="let match of matches">
+    <match-row [match]="match"></match-row>
+  </div>
+</div>
+<!-- <div class="table">
   <table>
     <thead>
       <tr>
@@ -28,4 +33,4 @@
       </tr>
     </tbody>
   </table>
-</div>
+</div> -->

@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SummonerDetailsComponent } from './modules/home/home/summoner-details/summoner-details.component';
 import { LayoutModule } from './layout/layout.module';
 import { SearchComponent } from './modules/home/home/search.component';
+import { MatchRowComponent } from './shared/components/match-row/match-row.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { SearchComponent } from './modules/home/home/search.component';
     AppComponent,
     SearchComponent,
     SummonerDetailsComponent,
+    MatchRowComponent,
   ],
   imports: [
     HttpClientModule,
