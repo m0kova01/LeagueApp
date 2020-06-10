@@ -13,7 +13,9 @@ import { SummonerDetailsComponent } from './modules/home/home/summoner-details/s
 import { LayoutModule } from './layout/layout.module';
 import { SearchComponent } from './modules/home/home/search.component';
 import { MatchRowComponent } from './shared/components/match-row/match-row.component';
-
+import { RegionSelectComponent } from './shared/components/region-select/region-select.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,7 @@ import { MatchRowComponent } from './shared/components/match-row/match-row.compo
     SearchComponent,
     SummonerDetailsComponent,
     MatchRowComponent,
+    RegionSelectComponent,
   ],
   imports: [
     HttpClientModule,
@@ -31,7 +34,8 @@ import { MatchRowComponent } from './shared/components/match-row/match-row.compo
     MatButtonModule,
     FormsModule,
     LayoutModule,
-
+    MatDialogModule,
+    MatRadioModule
   ],
   providers: [HttpClientModule, SummonerService],
   bootstrap: [AppComponent]

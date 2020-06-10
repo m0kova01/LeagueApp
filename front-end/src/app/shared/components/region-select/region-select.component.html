@@ -1,0 +1,10 @@
+<div style="display: flex; flex-direction: column;">
+  <div style="padding: 25px; width: 500px;">
+    <mat-radio-group aria-label="Select an option" [(ngModel)]="region">
+      <mat-radio-button style="padding: 10px;" *ngFor="let region of regions" [value]="region">{{
+        region
+      }}</mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <button mat-stroked-button style="align-self: flex-end;" (click)="closeModal()">OK</button>
+</div>
