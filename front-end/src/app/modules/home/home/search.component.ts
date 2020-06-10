@@ -1,17 +1,18 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import SummonerModel from '../../../shared/models/summoner-model';
 import SummonerService from 'src/app/shared/api/summoner.service';
-import SummonerModel from 'src/app/shared/models/summoner-model';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-summoner-search',
+  selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
-  @Output() notify: EventEmitter<SummonerModel> = new EventEmitter<SummonerModel>();
+  summoner: SummonerModel;
   summonerName: string;
 
-  constructor(private summonerService: SummonerService) { }
+  constructor(private summonerService: SummonerService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -31,6 +32,10 @@ export class SearchComponent implements OnInit {
     summoner.revisionDate = response.revisionDate;
     summoner.summonerLevel = response.summonerLevel;
 
-    this.notify.emit(summoner);
+    this.router.navigate(['/home/details'], {state: {data: summoner}});
   }
+  handleSummoner(summoner: SummonerModel): void {
+    this.summoner = summoner;
+  }
+
 }

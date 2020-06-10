@@ -1,0 +1,6 @@
+<div class="body center">
+  <mat-form-field style="margin-right: 5px;">
+    <input matInput placeholder="Summoner Name" routerLink="/home/search" [(ngModel)]="summonerName" />
+  </mat-form-field>
+  <button mat-stroked-button (click)="lookupSummoner()">GO</button>
+</div>

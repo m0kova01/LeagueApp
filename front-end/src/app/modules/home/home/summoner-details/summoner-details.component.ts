@@ -3,6 +3,8 @@ import SummonerModel from 'src/app/shared/models/summoner-model';
 import SummonerService from 'src/app/shared/api/summoner.service';
 import MatchModel from 'src/app/shared/models/match-model';
 import { ChampionShortModel } from 'src/app/shared/models/champion-short-model';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-summoner-details',
@@ -10,13 +12,15 @@ import { ChampionShortModel } from 'src/app/shared/models/champion-short-model';
   styleUrls: ['./summoner-details.component.scss']
 })
 export class SummonerDetailsComponent implements OnInit {
-  @Input() summoner: SummonerModel;
+  summoner: SummonerModel;
   matches: MatchModel[] = [];
   champions: any[] = [];
+  state$: Observable<object>;
 
-  constructor(private summonerService: SummonerService) { }
+  constructor(public activatedRoute: ActivatedRoute, private summonerService: SummonerService) { }
 
   ngOnInit(): void {
+    this.summoner = history.state.data
     this.loadChampionDetails();
   }
 
