@@ -1,4 +1,9 @@
-<button mat-button [matMenuTriggerFor]="menu">Menu</button>
-<mat-menu #menu="matMenu">
-  <button (click)="navigateToSearch()" mat-menu-item>Home</button>
-</mat-menu>
+<div class="navbar">
+  <!-- <button mat-button [matMenuTriggerFor]="menu">Menu</button> -->
+  <button style="align-self: center"  mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button (click)="navigateToSearch()" mat-menu-item>Home</button>
+  </mat-menu>
+</div>
