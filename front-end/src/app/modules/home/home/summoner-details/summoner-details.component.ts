@@ -1,23 +1,34 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import SummonerModel from 'src/app/shared/models/summoner-model';
 import SummonerService from 'src/app/shared/api/summoner.service';
 import MatchModel from 'src/app/shared/models/match-model';
 import { ChampionShortModel } from 'src/app/shared/models/champion-short-model';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { ErrorService } from 'src/app/shared/api/error.service';
 
 @Component({
   selector: 'app-summoner-details',
   templateUrl: './summoner-details.component.html',
   styleUrls: ['./summoner-details.component.scss']
 })
-export class SummonerDetailsComponent implements OnInit {
+export class SummonerDetailsComponent implements OnInit, OnChanges {
   summoner: SummonerModel;
   matches: MatchModel[] = [];
   champions: any[] = [];
   state$: Observable<object>;
+  _subscription: any;
 
-  constructor(public activatedRoute: ActivatedRoute, private summonerService: SummonerService) { }
+  constructor(public activatedRoute: ActivatedRoute, private summonerService: SummonerService, private errorService: ErrorService) { }
+
+  ngOnChanges(): void {
+    this.summoner = this.summonerService.summoner;
+    this._subscription = this.summonerService.summonerChange.subscribe((value) => { 
+      this.summoner = value;
+      this.loadChampionDetails();
+    });
+    this.loadChampionDetails();
+  }
 
   ngOnInit(): void {
     this.summoner = history.state.data;
@@ -25,7 +36,10 @@ export class SummonerDetailsComponent implements OnInit {
   }
 
   loadChampionDetails(): void {
-    this.summonerService.loadChampionDetails().subscribe((response) => this.handleChampDetail(response));
+    this.summonerService.loadChampionDetails().subscribe(response => { this.handleChampDetail(response); },
+    error => {
+        this.errorService.DisplayError('Summoner not found!');
+    });
   }
 
   handleChampDetail(response): void {

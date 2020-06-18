@@ -1,12 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import SummonerModel from '../models/summoner-model';
+import { Subject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
 export default class SummonerService {
-    API_KEY = 'RGAPI-6bb5459d-0f9c-4294-875f-8263e10fd6aa'; // key runs out every 24 hours, must be replaced
+    API_KEY = 'RGAPI-efe60032-6763-4e11-8839-a560e5e8732d'; // key runs out every 24 hours, must be replaced
     BASE_URL = 'https://na1.api.riotgames.com';
+
+    summoner: SummonerModel;
+    summonerChange: Subject<SummonerModel> = new Subject<SummonerModel>()
 
     constructor(private http: HttpClient) { }
     responseStatus: number;
@@ -18,11 +23,17 @@ export default class SummonerService {
 
     getMatchHistory(accountID: number): any {
         // tslint:disable-next-line: max-line-length
+        console.log(this.http.get(this.BASE_URL + '/lol/match/v4/matchlists/by-account/' + accountID + '?api_key=' + this.API_KEY));
         return this.http.get(this.BASE_URL + '/lol/match/v4/matchlists/by-account/' + accountID + '?api_key=' + this.API_KEY);
     }
 
     loadChampionDetails(): any {
         // tslint:disable-next-line: max-line-length
         return this.http.get('http://ddragon.leagueoflegends.com/cdn/10.11.1/data/en_US/champion.json?api_key=' + this.API_KEY);
+    }
+
+    changeSummoner(summoner: SummonerModel): any {
+        this.summoner = summoner;
+        this.summonerChange.next(this.summoner);
     }
 }

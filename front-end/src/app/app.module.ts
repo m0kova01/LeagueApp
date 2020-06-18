@@ -16,6 +16,9 @@ import { MatchRowComponent } from './shared/components/match-row/match-row.compo
 import { RegionSelectComponent } from './shared/components/region-select/region-select.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
+import { ErrorMessageComponent } from './shared/components/error-message/error-message.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ErrorService } from './shared/api/error.service';
 
 @NgModule({
   declarations: [
@@ -24,6 +27,7 @@ import { MatRadioModule } from '@angular/material/radio';
     SummonerDetailsComponent,
     MatchRowComponent,
     RegionSelectComponent,
+    ErrorMessageComponent,
   ],
   imports: [
     HttpClientModule,
@@ -35,9 +39,10 @@ import { MatRadioModule } from '@angular/material/radio';
     FormsModule,
     LayoutModule,
     MatDialogModule,
-    MatRadioModule
+    MatRadioModule,
+    NgbModule
   ],
-  providers: [HttpClientModule, SummonerService],
+  providers: [HttpClientModule, SummonerService, ErrorService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

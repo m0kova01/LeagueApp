@@ -1,10 +1,18 @@
-<div style="display: flex; flex-direction: column;">
-  <div style="padding: 25px; width: 500px;">
+<div class="modal-header">
+  <h3 class="modal-title" id="modal-basic-title">Region Select</h3>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div>
     <mat-radio-group aria-label="Select an option" [(ngModel)]="region">
-      <mat-radio-button style="padding: 10px;" *ngFor="let region of regions" [value]="region">{{
+      <mat-radio-button style="padding: 10px; width: 50%;" *ngFor="let region of regions" [value]="region">{{
         region
       }}</mat-radio-button>
     </mat-radio-group>
   </div>
-  <button mat-stroked-button style="align-self: flex-end;" (click)="closeModal()">OK</button>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" (click)="closeModal()">OK</button>
 </div>

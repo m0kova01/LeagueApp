@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import SummonerService from '../../api/summoner.service';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -14,7 +15,7 @@ export class RegionSelectComponent implements OnInit {
   regions = ['North America', 'Europe Nordic & East', 'LAN', 'Korea', 'Oceania',
     'Russia', 'Japan', 'Brazil', 'Turkey', 'Europe West', 'LAS'];
 
-  constructor(private summonerService: SummonerService, public dialogRef: MatDialogRef<any>) { }
+  constructor(private summonerService: SummonerService, public activeModal: NgbActiveModal) { }
 
   ngOnInit(): void {
     switch (this.region) {
@@ -106,7 +107,7 @@ export class RegionSelectComponent implements OnInit {
         return;
     }
 
-    this.dialogRef.close(this.region);
+    this.activeModal.close(this.region);
   }
 
 }

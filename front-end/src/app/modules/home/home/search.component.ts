@@ -4,6 +4,8 @@ import SummonerService from 'src/app/shared/api/summoner.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { RegionSelectComponent } from 'src/app/shared/components/region-select/region-select.component';
+import { ErrorService } from 'src/app/shared/api/error.service';
+import { NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-search',
@@ -15,18 +17,25 @@ export class SearchComponent implements OnInit {
   region = 'NA1';
   summonerName: string;
 
-  constructor(public dialog: MatDialog, private summonerService: SummonerService, private router: Router) { }
+  constructor(public dialog: MatDialog, private summonerService: SummonerService, private router: Router, private errorService: ErrorService, public modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.setRegion();
   }
 
   lookupSummoner(): void {
-
-    this.summonerService.getSummoner(this.summonerName).subscribe((response) => this.handleResponse(response));
+    this.summonerService.getSummoner(this.summonerName).subscribe(response => { this.handleResponse(response) },
+      error => {
+        this.errorService.DisplayError('Summoner not found!');
+        return;
+      });
   }
 
   handleResponse(response: any): void {
+    if (response.status) {
+      console.log(response.status.message);
+      return;
+    }
     const summoner = new SummonerModel();
 
     summoner.accountId = response.accountId;
@@ -37,20 +46,23 @@ export class SearchComponent implements OnInit {
     summoner.revisionDate = response.revisionDate;
     summoner.summonerLevel = response.summonerLevel;
 
+    this.summonerService.changeSummoner(summoner);
+
     this.router.navigate(['/home/details'], { state: { data: summoner } });
   }
+
   handleSummoner(summoner: SummonerModel): void {
     this.summoner = summoner;
   }
 
   changeRegion(): void {
-    const dialogRef = this.dialog.open(RegionSelectComponent);
-
-    dialogRef.componentInstance.region = this.region;
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.region = result;
-    });
+    const modalRef: NgbModalRef = this.modalService.open(RegionSelectComponent);
+    modalRef.componentInstance.region = this.region;
+    modalRef.result.then(result => {
+      if (result)
+        this.region = result;
+    }).catch(e => {
+      return; });
   }
 
   setRegion(): void {
