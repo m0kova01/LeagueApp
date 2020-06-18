@@ -48,7 +48,7 @@ export class SearchComponent implements OnInit {
 
     this.summonerService.changeSummoner(summoner);
 
-    this.router.navigate(['/home/details'], { state: { data: summoner } });
+    this.router.navigate(['/home/details']);
   }
 
   handleSummoner(summoner: SummonerModel): void {

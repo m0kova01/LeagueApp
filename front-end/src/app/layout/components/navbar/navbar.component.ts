@@ -48,7 +48,7 @@ export class NavbarComponent implements OnInit {
 
     this.summonerService.changeSummoner(summoner);
 
-    this.router.navigate(['/home/details'], { state: { data: summoner } });
+    this.router.navigate(['/home/details']);
   }
 
 

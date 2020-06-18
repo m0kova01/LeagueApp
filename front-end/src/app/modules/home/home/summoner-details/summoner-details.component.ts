@@ -12,34 +12,35 @@ import { ErrorService } from 'src/app/shared/api/error.service';
   templateUrl: './summoner-details.component.html',
   styleUrls: ['./summoner-details.component.scss']
 })
-export class SummonerDetailsComponent implements OnInit, OnChanges {
+export class SummonerDetailsComponent implements OnInit {
   summoner: SummonerModel;
   matches: MatchModel[] = [];
   champions: any[] = [];
   state$: Observable<object>;
-  _subscription: any;
 
   constructor(public activatedRoute: ActivatedRoute, private summonerService: SummonerService, private errorService: ErrorService) { }
 
-  ngOnChanges(): void {
-    this.summoner = this.summonerService.summoner;
-    this._subscription = this.summonerService.summonerChange.subscribe((value) => { 
-      this.summoner = value;
-      this.loadChampionDetails();
-    });
-    this.loadChampionDetails();
-  }
+  // ngOnChanges(): void {
+  //   this.summoner = this.summonerService.summoner;
+  //   this._subscription = this.summonerService.summonerChange.subscribe((value) => {
+  //     this.summoner = value;
+  //     this.loadChampionDetails();
+  //   });
+  //   this.loadChampionDetails();
+  // }
 
   ngOnInit(): void {
-    this.summoner = history.state.data;
-    this.loadChampionDetails();
+    this.summonerService.currentSummoner.subscribe(summoner => {
+      this.summoner = summoner;
+      this.loadChampionDetails();
+    });
   }
 
   loadChampionDetails(): void {
     this.summonerService.loadChampionDetails().subscribe(response => { this.handleChampDetail(response); },
-    error => {
+      error => {
         this.errorService.DisplayError('Summoner not found!');
-    });
+      });
   }
 
   handleChampDetail(response): void {
