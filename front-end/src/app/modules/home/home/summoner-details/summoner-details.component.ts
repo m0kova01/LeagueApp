@@ -14,20 +14,10 @@ import { ErrorService } from 'src/app/shared/api/error.service';
 })
 export class SummonerDetailsComponent implements OnInit {
   summoner: SummonerModel;
-  matches: MatchModel[] = [];
   champions: any[] = [];
   state$: Observable<object>;
 
   constructor(public activatedRoute: ActivatedRoute, private summonerService: SummonerService, private errorService: ErrorService) { }
-
-  // ngOnChanges(): void {
-  //   this.summoner = this.summonerService.summoner;
-  //   this._subscription = this.summonerService.summonerChange.subscribe((value) => {
-  //     this.summoner = value;
-  //     this.loadChampionDetails();
-  //   });
-  //   this.loadChampionDetails();
-  // }
 
   ngOnInit(): void {
     this.summonerService.currentSummoner.subscribe(summoner => {
@@ -52,25 +42,54 @@ export class SummonerDetailsComponent implements OnInit {
   }
 
   loadMatchHistory(): void {
-    this.summonerService.getMatchHistory(this.summoner.accountId).subscribe((response) => this.handleMatchHistory(response));
+    this.summonerService.getMatchHistory(this.summoner.accountId).subscribe(response => { this.handleMatchHistory(response); },
+      error => {
+        this.errorService.DisplayError('Error loading matches!');
+      });
   }
 
   handleMatchHistory(response): void {
     if (response.matches) {
-      this.matches = Array.isArray(response.matches) ? response.matches : [response.matches];
-      this.matches = this.matches.slice(0, 10); // only lookup past 10 games because of api key limit
-    }
+      this.summoner.matches = Array.isArray(response.matches) ? response.matches : [response.matches];
+      this.summoner.matches = this.summoner.matches.slice(0, 10); // only lookup past 10 games because of api key limit
+    } else
+      this.summoner.matches = []
 
     this.findChampNames();
   }
 
   findChampNames(): void {
-    this.matches.forEach(match => {
+    this.summoner.matches.forEach(match => {
+      this.loadMatchDetails(match.gameId)
       this.champions.forEach(champion => {
         if (+match.champion === +champion.key) {
           match.championName = champion.id;
         }
       });
     });
+  }
+
+  loadMatchDetails(gameID: number): void {
+    this.summonerService.getMatchDetails(gameID).subscribe(response => { console.log(response); this.handleMatchDetails(response) },
+      error => {
+        this.errorService.DisplayError('Error loading match details!');
+      });
+  }
+
+  handleMatchDetails(result): void {
+    let participantID: number;
+    for (let i = 0; i < result.participantIdentities.length; i++){
+      if (result.participantIdentities[i].player.summonerName === this.summoner.name) {
+        participantID = result.participantIdentities[i].participantId;
+        break;
+      }
+    }
+
+    for (let i = 0; i < result.participants.length; i++) {
+      if (result.particpants[i].participantId === participantID) {
+        
+      }
+    }
+
   }
 }

@@ -1,3 +1,4 @@
+import MatchModel from './match-model';
 
 export default class SummonerModel {
     accountId: number;
@@ -7,4 +8,5 @@ export default class SummonerModel {
     puuid: string;
     revisionDate: number;
     summonerLevel: number;
+    matches: MatchModel[];
 }

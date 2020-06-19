@@ -7,7 +7,7 @@ import { Subject, BehaviorSubject } from 'rxjs';
     providedIn: 'root'
 })
 export default class SummonerService {
-    API_KEY = 'RGAPI-efe60032-6763-4e11-8839-a560e5e8732d'; // key runs out every 24 hours, must be replaced
+    API_KEY = 'RGAPI-49e94647-5f8e-44ab-8f1f-ef50d4ce7a33'; // key runs out every 24 hours, must be replaced
     BASE_URL = 'https://na1.api.riotgames.com';
 
     private summoner = new BehaviorSubject(new SummonerModel());
@@ -35,5 +35,9 @@ export default class SummonerService {
 
     changeSummoner(summoner: SummonerModel): any {
         this.summoner.next(summoner);
+    }
+
+    getMatchDetails(gameID: number): any {
+        return this.http.get(this.BASE_URL + '/lol/match/v4/matches/' + gameID + '?api_key=' + this.API_KEY);
     }
 }

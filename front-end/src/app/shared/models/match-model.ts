@@ -1,3 +1,5 @@
+import StatsModel from './stasts-model';
+
 export default class MatchModel {
     champion: number;
     gameId: number;
@@ -8,4 +10,5 @@ export default class MatchModel {
     season: number;
     timestamp: number;
     championName: string;
+    stats: StatsModel;
 }
