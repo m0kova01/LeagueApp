@@ -1,4 +1,5 @@
 import StatsModel from './stasts-model';
+import ParticipantModel from './participant-model';
 
 export default class MatchModel {
     champion: number;
@@ -11,4 +12,5 @@ export default class MatchModel {
     timestamp: number;
     championName: string;
     stats: StatsModel;
+    participants: ParticipantModel[];
 }

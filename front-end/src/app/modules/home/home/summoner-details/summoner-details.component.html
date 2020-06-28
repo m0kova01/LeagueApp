@@ -1,11 +1,14 @@
-<span class="header">
-  <img style="width: 60px; margin-right: 10px;" src="http://ddragon.leagueoflegends.com/cdn/10.11.1/img/profileicon/{{
+<div *ngIf="loaded">
+  <span class="header">
+    <img style="width: 60px; margin-right: 10px;" src="http://ddragon.leagueoflegends.com/cdn/10.11.1/img/profileicon/{{
       summoner.profileIconId
     }}.png" alt="summoner icon" />
-  <div>{{ summoner.name }}</div>
-</span>
-<div class="table">
-  <div *ngFor="let match of summoner.matches">
-    <match-row [match]="match"></match-row>
+    <div>{{ summoner.name }}</div>
+  </span>
+  <div class="champion-stats"></div>
+  <div class="match-history">
+    <div *ngFor="let match of summoner.matches">
+      <match-row [summonerName]="summoner.name" [match]="match"></match-row>
+    </div>
   </div>
 </div>

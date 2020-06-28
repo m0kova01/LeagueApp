@@ -1,7 +1,7 @@
 <div class="body center">
   <span class="search-container">
     <div class="input-group mb-3" style="margin-right: 10px;">
-      <input type="text" class="form-control" placeholder="Summoner Name" aria-label="Summoner Name" [(ngModel)]="summonerName">
+      <input type="text" class="form-control" placeholder="Summoner Name" aria-label="Summoner Name" [(ngModel)]="summonerName" (keyup.enter)="lookupSummoner()">
       <div class="input-group-append">
         <button class="btn btn-secondary btn-sm" (click)="changeRegion()">{{region}}</button>
       </div>

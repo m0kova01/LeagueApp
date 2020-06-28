@@ -33,7 +33,6 @@ export class SearchComponent implements OnInit {
 
   handleResponse(response: any): void {
     if (response.status) {
-      console.log(response.status.message);
       return;
     }
     const summoner = new SummonerModel();

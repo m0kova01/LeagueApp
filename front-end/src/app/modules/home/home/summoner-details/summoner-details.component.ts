@@ -3,9 +3,10 @@ import SummonerModel from 'src/app/shared/models/summoner-model';
 import SummonerService from 'src/app/shared/api/summoner.service';
 import MatchModel from 'src/app/shared/models/match-model';
 import { ChampionShortModel } from 'src/app/shared/models/champion-short-model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ErrorService } from 'src/app/shared/api/error.service';
+import StatsModel from 'src/app/shared/models/stasts-model';
 
 @Component({
   selector: 'app-summoner-details',
@@ -16,8 +17,9 @@ export class SummonerDetailsComponent implements OnInit {
   summoner: SummonerModel;
   champions: any[] = [];
   state$: Observable<object>;
+  loaded = false;
 
-  constructor(public activatedRoute: ActivatedRoute, private summonerService: SummonerService, private errorService: ErrorService) { }
+  constructor(private router: Router, public activatedRoute: ActivatedRoute, private summonerService: SummonerService, private errorService: ErrorService) { }
 
   ngOnInit(): void {
     this.summonerService.currentSummoner.subscribe(summoner => {
@@ -30,6 +32,7 @@ export class SummonerDetailsComponent implements OnInit {
     this.summonerService.loadChampionDetails().subscribe(response => { this.handleChampDetail(response); },
       error => {
         this.errorService.DisplayError('Summoner not found!');
+        this.router.navigate(['/home/search']);
       });
   }
 
@@ -41,10 +44,12 @@ export class SummonerDetailsComponent implements OnInit {
     this.loadMatchHistory();
   }
 
+
   loadMatchHistory(): void {
     this.summonerService.getMatchHistory(this.summoner.accountId).subscribe(response => { this.handleMatchHistory(response); },
       error => {
         this.errorService.DisplayError('Error loading matches!');
+        this.router.navigate(['/home/search']);
       });
   }
 
@@ -56,11 +61,13 @@ export class SummonerDetailsComponent implements OnInit {
       this.summoner.matches = []
 
     this.findChampNames();
+
+    this.loaded = true;
   }
 
   findChampNames(): void {
     this.summoner.matches.forEach(match => {
-      this.loadMatchDetails(match.gameId)
+      // match.stats =  this.loadMatchDetails(match.gameId)
       this.champions.forEach(champion => {
         if (+match.champion === +champion.key) {
           match.championName = champion.id;
@@ -69,27 +76,4 @@ export class SummonerDetailsComponent implements OnInit {
     });
   }
 
-  loadMatchDetails(gameID: number): void {
-    this.summonerService.getMatchDetails(gameID).subscribe(response => { console.log(response); this.handleMatchDetails(response) },
-      error => {
-        this.errorService.DisplayError('Error loading match details!');
-      });
-  }
-
-  handleMatchDetails(result): void {
-    let participantID: number;
-    for (let i = 0; i < result.participantIdentities.length; i++){
-      if (result.participantIdentities[i].player.summonerName === this.summoner.name) {
-        participantID = result.participantIdentities[i].participantId;
-        break;
-      }
-    }
-
-    for (let i = 0; i < result.participants.length; i++) {
-      if (result.particpants[i].participantId === participantID) {
-        
-      }
-    }
-
-  }
 }

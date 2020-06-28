@@ -19,6 +19,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { ErrorMessageComponent } from './shared/components/error-message/error-message.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ErrorService } from './shared/api/error.service';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { ErrorService } from './shared/api/error.service';
     LayoutModule,
     MatDialogModule,
     MatRadioModule,
+    MatTooltipModule,
     NgbModule
   ],
   providers: [HttpClientModule, SummonerService, ErrorService],

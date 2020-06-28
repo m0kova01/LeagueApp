@@ -6,20 +6,32 @@
     padding-bottom: 20px;
     padding-right: 80px;
     padding-left: 80px;
-    background-color: #A8DADC;
+    // background-color: #A8DADC;
 }
 
 .column {
-    width: 110px;
+    width: 150px;
     display: flex;
-    justify-content: center;
 }
 
-.hover {
+.hover-victory {
     cursor: pointer;
     background-color: #b3e6e8;
 }
 
-.normal {
+.normal-victory {
     background-color: #A8DADC;
 }
+
+.hover-defeat {
+    cursor: pointer;
+    background-color: #fd9e9e;
+}
+
+.normal-defeat {
+    background-color: #f88d8d;
+}
+
+.capitalize {
+    text-transform: capitalize;
+ }
