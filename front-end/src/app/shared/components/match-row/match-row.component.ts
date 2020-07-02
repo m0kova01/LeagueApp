@@ -22,7 +22,6 @@ export class MatchRowComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadMatchDetails();
-    console.log(this.match)
   }
 
 
