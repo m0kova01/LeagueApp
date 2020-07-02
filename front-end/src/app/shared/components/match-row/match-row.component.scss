@@ -2,9 +2,16 @@
     position: relative;
     background: none;
     display: table;
-    width: 689px;
+    
+    @media only screen and (max-width: 670px) {
+        width: 100%;
+      }
+    
+    @media only screen and (min-width: 670px) {
+        width: 670px;
+      }
+    width: auto;
     border-collapse: collapse;
-    border: 1px solid white;
     table-layout: fixed;
     flex-wrap: wrap;
     margin-right: -15px;
