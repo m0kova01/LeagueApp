@@ -1,20 +1,29 @@
 <ng-container *ngIf="loaded">
     <div class="row" [ngClass]="color" (mouseover)="changeStyle($event)" (mouseout)="changeStyle($event)">
-        <div class="column">{{match.timestamp | date: 'shortDate'}}</div>
+        <div style="padding-left: 20px;" class="column">{{match.timestamp | date: 'shortDate'}}</div>
         <div class="column">{{match.lane | titlecase}}</div>
-        <div class="column" style="display: flex; flex-direction: column;">
-            <div style="align-items: center; width: fit-content;">
-                <div style="text-align: center; display: flex;">
-                    <img style="height: 40px; margin-right: 20px;"
-                        src="http://ddragon.leagueoflegends.com/cdn/10.11.1/img/champion/{{match.championName}}.png"
-                        alt="champ icon" />
-                    <div style="align-self: center;" mat-raised-button
+        <div class="column">
+            <img class="champion"
+                src="http://ddragon.leagueoflegends.com/cdn/10.11.1/img/champion/{{match.championModel.name}}.png"
+                alt="champ icon" />
+            <div class="summoner-spells">
+                <img style="height: 20px; margin-bottom: 10px;"
+                    src="http://ddragon.leagueoflegends.com/cdn/10.13.1/img/spell/{{selectedParticipant.spell1IdString}}.png"
+                    alt="champ icon" />
+                <img style="height: 20px;"
+                    src="http://ddragon.leagueoflegends.com/cdn/10.13.1/img/spell/{{selectedParticipant.spell2IdString}}.png"
+                    alt="champ icon" />
+            </div>
+
+        </div>
+        <div class="column">
+            <div style="text-align: center; font-size: small; margin-top: 5px;">
+                <div style="align-self: center;" mat-raised-button
                         matTooltip="{{ ((match.stats.kills + match.stats.assists)/match.stats.deaths) | number : '1.2-2' }} KDA">
                         {{ match.stats.kills}} / {{ match.stats.assists}} / {{match.stats.deaths}}
                     </div>
-                </div>
             </div>
-            <div style="text-align: center; font-size: small; margin-top: 5px;">{{ match.championName | titlecase }}
+            <div style="text-align: center; font-size: small; margin-top: 5px;">{{ match.championModel.name | titlecase }}
             </div>
         </div>
         <div class="column">

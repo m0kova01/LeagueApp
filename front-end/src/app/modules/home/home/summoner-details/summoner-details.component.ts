@@ -1,12 +1,9 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import SummonerModel from 'src/app/shared/models/summoner-model';
 import SummonerService from 'src/app/shared/api/summoner.service';
-import MatchModel from 'src/app/shared/models/match-model';
-import { ChampionShortModel } from 'src/app/shared/models/champion-short-model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ErrorService } from 'src/app/shared/api/error.service';
-import StatsModel from 'src/app/shared/models/stasts-model';
 
 @Component({
   selector: 'app-summoner-details',
@@ -70,7 +67,7 @@ export class SummonerDetailsComponent implements OnInit {
       // match.stats =  this.loadMatchDetails(match.gameId)
       this.champions.forEach(champion => {
         if (+match.champion === +champion.key) {
-          match.championName = champion.id;
+          match.championModel = champion;
         }
       });
     });

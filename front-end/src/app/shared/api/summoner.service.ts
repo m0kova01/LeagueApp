@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import SummonerModel from '../models/summoner-model';
-import { Subject, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
 export default class SummonerService {
-    API_KEY = 'RGAPI-fe73651b-8f28-4ac9-a702-557ba79874b5'; // key runs out every 24 hours, must be replaced
+    API_KEY = 'RGAPI-896a7e1b-3319-4177-93d5-ced6ae808d13'; // key runs out every 24 hours, must be replaced
     BASE_URL = 'https://na1.api.riotgames.com';
 
     private summoner = new BehaviorSubject(new SummonerModel());

@@ -9,7 +9,7 @@ export class ErrorService {
 
   constructor(private modalService: NgbModal) { }
 
-  DisplayError(message): any {
+  DisplayError(message: string): any {
     const options: NgbModalOptions = { backdrop: 'static' };
     const modalRef: NgbModalRef = this.modalService.open(ErrorMessageComponent, options);
     modalRef.componentInstance.ErrorMessage = message;
