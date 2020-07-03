@@ -14,7 +14,7 @@ export class ErrorMessageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public set ErrorMessage(error: string) { this.errorMessage = error }
+  public set ErrorMessage(error: string) { this.errorMessage = error; }
 
   closeModal(): void {
     this.activeModal.close();

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import SummonerService from '../../api/summoner.service';
+import { SummonerService } from '../../api/summoner.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { RegionService } from '../../api/region.service';
 

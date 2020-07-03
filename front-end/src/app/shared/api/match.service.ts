@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import * as global from '../data/global';
-import { RegionService } from './region.service';
 import { BehaviorSubject } from 'rxjs';
 import MatchModel from '../models/match-model';
+import { RegionService } from './region.service';
 
 @Injectable({
   providedIn: 'root'

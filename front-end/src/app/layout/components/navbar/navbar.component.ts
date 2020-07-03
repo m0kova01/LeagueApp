@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser';
-import SummonerService from 'src/app/shared/api/summoner.service';
+import { SummonerService } from 'src/app/shared/api/summoner.service';
 import { ErrorService } from 'src/app/shared/api/error.service';
 import SummonerModel from 'src/app/shared/models/summoner-model';
 
@@ -14,18 +12,18 @@ import SummonerModel from 'src/app/shared/models/summoner-model';
 export class NavbarComponent implements OnInit {
   summonerName: string;
 
-  constructor(private router: Router, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, private summonerService: SummonerService, private errorService: ErrorService) { }
+  constructor(private router: Router, private summonerService: SummonerService, private errorService: ErrorService) { }
 
   ngOnInit(): void {
   }
 
   navigateToSearch(): void {
-    this.router.navigate(['/home/search'])
+    this.router.navigate(['/home/search']);
   }
 
   lookupSummoner(): void {
-    this.summonerService.getSummoner(this.summonerName).subscribe(response => { this.handleResponse(response) },
-      error => {
+    this.summonerService.getSummoner(this.summonerName).subscribe(response => { this.handleResponse(response); },
+      () => {
         this.errorService.DisplayError('Summoner not found!');
         return;
       });

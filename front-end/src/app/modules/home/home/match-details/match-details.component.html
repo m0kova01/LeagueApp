@@ -1,6 +1,6 @@
 <div class="main-container">
     <div *ngFor="let team of teams" class="team-container" [ngClass]="(team.teamId==100)?'team-one':'team-two'">
-        <div *ngFor="let teamMember of team.teamMembers">
+        <div *ngFor="let teamMember of team.teamMembers" (click)="lookupSummoner(teamMember.summonerName)">
             <div><img style="width: 60px; margin-right: 10px; border-radius: 5px;" src="http://ddragon.leagueoflegends.com/cdn/10.11.1/img/profileicon/{{
             teamMember.profileIcon
           }}.png" alt="summoner icon" /></div>

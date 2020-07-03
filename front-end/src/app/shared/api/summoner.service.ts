@@ -8,8 +8,7 @@ import { RegionService } from './region.service';
 @Injectable({
     providedIn: 'root'
 })
-export default class SummonerService {
-
+export class SummonerService {
     private summoner = new BehaviorSubject(new SummonerModel());
     currentSummoner = this.summoner.asObservable();
 

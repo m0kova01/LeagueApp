@@ -1,9 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import MatchModel from '../../models/match-model';
-import SummonerService from '../../api/summoner.service';
 import { ErrorService } from '../../api/error.service';
 import ParticipantModel from '../../models/participant-model';
-import *  as  summoner from '../../data/summoner.json';
+import * as summoner from '../../data/summoner.json';
 import { MatchService } from '../../api/match.service';
 import { Router } from '@angular/router';
 
@@ -29,9 +28,9 @@ export class MatchRowComponent implements OnInit {
 
   changeStyle($event) {
     if (this.match.stats.win)
-      this.color = $event.type == 'mouseover' ? 'hover-victory' : 'normal-victory';
+      this.color = $event.type === 'mouseover' ? 'hover-victory' : 'normal-victory';
     else
-      this.color = $event.type == 'mouseover' ? 'hover-defeat' : 'normal-defeat';
+      this.color = $event.type === 'mouseover' ? 'hover-defeat' : 'normal-defeat';
   }
 
   loadMatchDetails(): void {
@@ -53,24 +52,24 @@ export class MatchRowComponent implements OnInit {
     this.match.participantIdentities = result.participantIdentities;
 
     let participantID: number;
-    for (let i = 0; i < this.match.participantIdentities.length; i++) {
-      if (this.match.participantIdentities[i].player.summonerName === this.summonerName) {
-        participantID = this.match.participantIdentities[i].participantId;
+    for (const participant of this.match.participantIdentities) {
+      if (participant.player.summonerName === this.summonerName) {
+        participantID = participant.participantId;
         break;
       }
     }
 
-    for (let i = 0; i < this.match.participants.length; i++) {
-      if (this.match.participants[i].participantId === participantID) {
-        this.match.stats = this.match.participants[i].stats
+    for (const participant of this.match.participants) {
+      if (participant.participantId === participantID) {
+        this.match.stats = participant.stats;
         this.color = this.match.stats.win ? 'normal-victory' : 'normal-defeat';
-        this.selectedParticipant = this.match.participants[i];
+        this.selectedParticipant = participant;
 
-        for (let i = 0; i < this.summonerSpells.length; i++) {
-          if (+this.summonerSpells[i][1].key === this.selectedParticipant.spell1Id)
-            this.selectedParticipant.spell1IdString = this.summonerSpells[i][1].id;
-          else if (+this.summonerSpells[i][1].key === this.selectedParticipant.spell2Id)
-            this.selectedParticipant.spell2IdString = this.summonerSpells[i][1].id;
+        for (const spell of this.summonerSpells) {
+          if (+spell[1].key === this.selectedParticipant.spell1Id)
+            this.selectedParticipant.spell1IdString = spell[1].id;
+          else if (+spell[1].key === this.selectedParticipant.spell2Id)
+            this.selectedParticipant.spell2IdString = spell[1].id;
         }
         break;
       }

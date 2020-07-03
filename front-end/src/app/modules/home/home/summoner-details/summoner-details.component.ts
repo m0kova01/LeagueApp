@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import SummonerModel from 'src/app/shared/models/summoner-model';
-import SummonerService from 'src/app/shared/api/summoner.service';
+import { SummonerService } from 'src/app/shared/api/summoner.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ErrorService } from 'src/app/shared/api/error.service';
@@ -16,7 +16,9 @@ export class SummonerDetailsComponent implements OnInit {
   state$: Observable<object>;
   loaded = false;
 
-  constructor(private router: Router, public activatedRoute: ActivatedRoute, private summonerService: SummonerService, private errorService: ErrorService) { }
+  constructor(
+    private router: Router, public activatedRoute: ActivatedRoute,
+    private summonerService: SummonerService, private errorService: ErrorService) { }
 
   ngOnInit(): void {
     this.summonerService.currentSummoner.subscribe(summoner => {
@@ -55,7 +57,7 @@ export class SummonerDetailsComponent implements OnInit {
       this.summoner.matches = Array.isArray(response.matches) ? response.matches : [response.matches];
       this.summoner.matches = this.summoner.matches.slice(0, 10); // only lookup past 10 games because of api key limit
     } else
-      this.summoner.matches = []
+      this.summoner.matches = [];
 
     this.findChampNames();
 

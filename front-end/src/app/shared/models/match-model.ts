@@ -24,5 +24,5 @@ export default class MatchModel {
     participantIdentities: any;
     queueId: number;
     seasonId: number;
-    teams: TeamModel[]
+    teams: TeamModel[];
 }

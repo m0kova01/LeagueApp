@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import SummonerModel from '../../../shared/models/summoner-model';
-import SummonerService from 'src/app/shared/api/summoner.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { RegionSelectComponent } from 'src/app/shared/components/region-select/region-select.component';
 import { ErrorService } from 'src/app/shared/api/error.service';
 import { NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { RegionService } from 'src/app/shared/api/region.service';
+import { SummonerService } from 'src/app/shared/api';
 
 @Component({
   selector: 'app-search',
@@ -18,14 +18,16 @@ export class SearchComponent implements OnInit {
   region: any;
   summonerName: string;
 
-  constructor(public dialog: MatDialog, private summonerService: SummonerService, private router: Router, private errorService: ErrorService, public modalService: NgbModal, private regionService: RegionService) { }
+  constructor(
+    public dialog: MatDialog, private summonerService: SummonerService,
+    private router: Router, private errorService: ErrorService, public modalService: NgbModal, private regionService: RegionService) { }
 
   ngOnInit(): void {
     this.setRegion();
   }
 
   lookupSummoner(): void {
-    this.summonerService.getSummoner(this.summonerName).subscribe(response => { this.handleResponse(response) },
+    this.summonerService.getSummoner(this.summonerName).subscribe(response => { this.handleResponse(response); },
       error => {
         this.errorService.DisplayError('Summoner not found!');
         return;
