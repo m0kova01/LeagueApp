@@ -68,6 +68,7 @@ export class SummonerDetailsComponent implements OnInit {
       this.champions.forEach(champion => {
         if (+match.champion === +champion.key) {
           match.championModel = champion;
+          return;
         }
       });
     });

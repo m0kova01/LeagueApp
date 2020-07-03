@@ -12,14 +12,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { SummonerDetailsComponent } from './modules/home/home/summoner-details/summoner-details.component';
 import { LayoutModule } from './layout/layout.module';
 import { SearchComponent } from './modules/home/home/search.component';
-import { MatchRowComponent } from './shared/components/match-row/match-row.component';
-import { RegionSelectComponent } from './shared/components/region-select/region-select.component';
+import { RegionSelectComponent, ErrorMessageComponent, MatchRowComponent } from './shared/components';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
-import { ErrorMessageComponent } from './shared/components/error-message/error-message.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ErrorService } from './shared/api/error.service';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatchDetailsComponent } from './modules/home/home/match-details/match-details.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +26,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     SearchComponent,
     SummonerDetailsComponent,
     MatchRowComponent,
+    MatchDetailsComponent,
     RegionSelectComponent,
     ErrorMessageComponent,
   ],

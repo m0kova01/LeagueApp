@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { RegionSelectComponent } from 'src/app/shared/components/region-select/region-select.component';
 import { ErrorService } from 'src/app/shared/api/error.service';
 import { NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { RegionService } from 'src/app/shared/api/region.service';
 
 @Component({
   selector: 'app-search',
@@ -14,10 +15,10 @@ import { NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstr
 })
 export class SearchComponent implements OnInit {
   summoner: SummonerModel;
-  region = 'NA1';
+  region: any;
   summonerName: string;
 
-  constructor(public dialog: MatDialog, private summonerService: SummonerService, private router: Router, private errorService: ErrorService, public modalService: NgbModal) { }
+  constructor(public dialog: MatDialog, private summonerService: SummonerService, private router: Router, private errorService: ErrorService, public modalService: NgbModal, private regionService: RegionService) { }
 
   ngOnInit(): void {
     this.setRegion();
@@ -61,47 +62,12 @@ export class SearchComponent implements OnInit {
       if (result)
         this.region = result;
     }).catch(e => {
-      return; });
+      return;
+    });
   }
 
   setRegion(): void {
-    switch (this.summonerService.BASE_URL) {
-      case 'https://na1.api.riotgames.com':
-        this.region = 'NA1';
-        break;
-      case 'https://eun1.api.riotgames.com':
-        this.region = 'EUN1';
-        break;
-      case 'https://la1.api.riotgames.com':
-        this.region = 'LA1';
-        break;
-      case 'https://kr.api.riotgames.com':
-        this.region = 'KR';
-        break;
-      case 'https://oc1.api.riotgames.com':
-        this.region = 'OC1';
-        break;
-      case 'https://ru.api.riotgames.com':
-        this.region = 'RU';
-        break;
-      case 'https://jp1.api.riotgames.com':
-        this.region = 'JP1';
-        break;
-      case 'https://br1.api.riotgames.com':
-        this.region = 'BR1';
-        break;
-      case 'https://tr1.api.riotgames.com':
-        this.region = 'TR1';
-        break;
-      case 'https://euw1.api.riotgames.com':
-        this.region = 'EUW1';
-        break;
-      case 'https://la2.api.riotgames.com':
-        this.region = 'LA2';
-        break;
-      default:
-        return;
-    }
+    this.region = this.regionService.getShortRegion();
   }
 
 }

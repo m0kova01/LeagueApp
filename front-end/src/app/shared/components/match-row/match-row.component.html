@@ -1,5 +1,5 @@
 <ng-container *ngIf="loaded">
-    <div class="card" style="border: 1px solid white;" [ngClass]="color" (mouseover)="changeStyle($event)" (mouseout)="changeStyle($event)">
+    <div class="card" style="border: 1px solid white;" [ngClass]="color" (mouseover)="changeStyle($event)" (mouseout)="changeStyle($event)" (click)="matchClick();">
         <div class="card-body">
             <div class="row">
                 <div style="padding-left: 20px;" class="column">{{match.timestamp | date: 'shortDate'}}</div>
@@ -16,7 +16,6 @@
                             src="http://ddragon.leagueoflegends.com/cdn/10.13.1/img/spell/{{selectedParticipant.spell2IdString}}.png"
                             alt="champ icon" />
                     </div>
-
                 </div>
                 <div class="column">
                     <div style="text-align: center; font-size: small; margin-top: 5px;">

@@ -1,14 +1,15 @@
 import StatsModel from './stasts-model';
 
 export default class ParticipantModel {
-    participantID: number;
+    participantId: number;
     summonerName: string;
+    profileIcon: number;
     championID: number;
-    teamID: number;
+    teamId: number;
     stats: StatsModel;
     spell1Id: number;
     spell1IdString: string;
     spell2Id: number;
-    spell2IdString: string
-    teamId: number;
+    spell2IdString: string;
+    timeline: any;
 }

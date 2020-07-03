@@ -4,6 +4,8 @@ import SummonerService from '../../api/summoner.service';
 import { ErrorService } from '../../api/error.service';
 import ParticipantModel from '../../models/participant-model';
 import *  as  summoner from '../../data/summoner.json';
+import { MatchService } from '../../api/match.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'match-row',
@@ -18,7 +20,7 @@ export class MatchRowComponent implements OnInit {
   loaded = false;
   summonerSpells = Object.entries(summoner.data);
 
-  constructor(private summonerService: SummonerService, private errorService: ErrorService) { }
+  constructor(private errorService: ErrorService, private matchService: MatchService, private router: Router) { }
 
   ngOnInit(): void {
     this.loadMatchDetails();
@@ -34,49 +36,51 @@ export class MatchRowComponent implements OnInit {
 
   loadMatchDetails(): void {
     this.selectedParticipant = new ParticipantModel();
-    this.summonerService.getMatchDetails(this.match.gameId).subscribe(response => { this.handleMatchDetails(response); },
+    this.matchService.getMatchDetails(this.match.gameId).subscribe(response => { this.handleMatchDetails(response); },
       error => {
         this.errorService.DisplayError('Error loading match details!');
       });
   }
 
   handleMatchDetails(result): void {
+    if (!result) {
+      this.errorService.DisplayError('Error fetching match details.');
+      return;
+    }
+
+    this.match.participants = result.participants;
+    this.match.teams = result.teams;
+    this.match.participantIdentities = result.participantIdentities;
+
     let participantID: number;
-    for (let i = 0; i < result.participantIdentities.length; i++) {
-      if (result.participantIdentities[i].player.summonerName === this.summonerName) {
-        participantID = result.participantIdentities[i].participantId;
+    for (let i = 0; i < this.match.participantIdentities.length; i++) {
+      if (this.match.participantIdentities[i].player.summonerName === this.summonerName) {
+        participantID = this.match.participantIdentities[i].participantId;
         break;
       }
     }
 
-    for (let i = 0; i < result.participants.length; i++) {
-      if (result.participants[i].participantId === participantID) {
-        this.match.stats = result.participants[i].stats
+    for (let i = 0; i < this.match.participants.length; i++) {
+      if (this.match.participants[i].participantId === participantID) {
+        this.match.stats = this.match.participants[i].stats
         this.color = this.match.stats.win ? 'normal-victory' : 'normal-defeat';
-        this.selectedParticipant = result.participants[i];
+        this.selectedParticipant = this.match.participants[i];
 
         for (let i = 0; i < this.summonerSpells.length; i++) {
           if (+this.summonerSpells[i][1].key === this.selectedParticipant.spell1Id)
             this.selectedParticipant.spell1IdString = this.summonerSpells[i][1].id;
           else if (+this.summonerSpells[i][1].key === this.selectedParticipant.spell2Id)
             this.selectedParticipant.spell2IdString = this.summonerSpells[i][1].id;
-          // if (+this.summonerSpells.data[i].key === this.selectedParticipant.spell1Id)
-          //   this.selectedParticipant.spell1IdString = this.summonerSpells.data[i].id;
         }
-        // this.summonerSpells.default.data.forEach(spell => {
-        //   if (spell['key'] === this.selectedParticipant.spell1Id)
-        //     this.selectedParticipant.spell1IdString = spell['id'];
-        //   else if (spell['key'] === this.selectedParticipant.spell2Id)
-        //     this.selectedParticipant.spell2IdString = spell['id'];
-        // });
         break;
       }
     }
     this.loaded = true;
   }
 
-  displayTooltip(): void {
+  matchClick(): void {
+    this.matchService.changeMatch(this.match);
 
+    this.router.navigate(['home/match-details']);
   }
-
 }
