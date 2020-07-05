@@ -4,6 +4,7 @@ import * as global from '../data/global';
 import { BehaviorSubject } from 'rxjs';
 import MatchModel from '../models/match-model';
 import { RegionService } from './region.service';
+import { Global } from '../data/global';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,12 @@ export class MatchService {
 
   constructor(private http: HttpClient, private region: RegionService) { }
 
-  getMatchDetails(gameID: number): any {
-    return this.http.get(this.region.BASE_URL + '/lol/match/v4/matches/' + gameID + '?api_key=' + global.API_KEY);
+  getMatchDetails(gameID: string): any {
+    return this.http.get(Global.API_ENDPOINTS.MATCH + 'GetMatchDetails', {
+      params: {
+        gameID
+      }
+    });
   }
 
   changeMatch(match: MatchModel): any {

@@ -23,7 +23,7 @@ export class RegionSelectComponent implements OnInit {
   }
 
   closeModal(): void {
-    this.activeModal.close(this.regionService.setRegion(this.region));
+    this.regionService.setRegion(this.region).subscribe(result => this.activeModal.close(result));
   }
 
 }

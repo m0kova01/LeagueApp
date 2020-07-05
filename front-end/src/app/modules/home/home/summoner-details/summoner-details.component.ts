@@ -45,7 +45,7 @@ export class SummonerDetailsComponent implements OnInit {
 
 
   loadMatchHistory(): void {
-    this.summonerService.getMatchHistory(this.summoner.accountId).subscribe(response => { this.handleMatchHistory(response); },
+    this.summonerService.getMatchHistory(this.summoner.accountId.toString()).subscribe(response => { this.handleMatchHistory(response); },
       error => {
         this.errorService.DisplayError('Error loading matches!');
         this.router.navigate(['/home/search']);

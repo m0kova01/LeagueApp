@@ -1,7 +1,7 @@
 import MatchModel from './match-model';
 
 export default class SummonerModel {
-    accountId: number;
+    accountId: string;
     id: number;
     name: string;
     profileIconId: number;

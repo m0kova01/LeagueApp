@@ -35,7 +35,7 @@ export class SearchComponent implements OnInit {
   }
 
   handleResponse(response: any): void {
-    if (response.status) {
+    if (!response) {
       return;
     }
     const summoner = new SummonerModel();
@@ -43,10 +43,10 @@ export class SearchComponent implements OnInit {
     summoner.accountId = response.accountId;
     summoner.id = response.id;
     summoner.name = response.name;
-    summoner.profileIconId = response.profileIconId;
+    summoner.profileIconId = +response.profileIconId;
     summoner.puuid = response.puuid;
-    summoner.revisionDate = response.revisionDate;
-    summoner.summonerLevel = response.summonerLevel;
+    summoner.revisionDate = +response.revisionDate;
+    summoner.summonerLevel = +response.summonerLevel;
 
     this.summonerService.changeSummoner(summoner);
 
@@ -69,7 +69,7 @@ export class SearchComponent implements OnInit {
   }
 
   setRegion(): void {
-    this.region = this.regionService.getShortRegion();
+    this.regionService.getShortRegion().subscribe(result => this.region = result);
   }
 
 }

@@ -35,7 +35,7 @@ export class MatchRowComponent implements OnInit {
 
   loadMatchDetails(): void {
     this.selectedParticipant = new ParticipantModel();
-    this.matchService.getMatchDetails(this.match.gameId).subscribe(response => { this.handleMatchDetails(response); },
+    this.matchService.getMatchDetails(this.match.gameId.toString()).subscribe(response => { this.handleMatchDetails(response); },
       error => {
         this.errorService.DisplayError('Error loading match details!');
       });

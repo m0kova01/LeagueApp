@@ -1,4 +1,8 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Global } from '../data/global';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -6,36 +10,10 @@ import { Injectable } from '@angular/core';
 export class RegionService {
   BASE_URL = 'https://na1.api.riotgames.com';
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getShortRegion(): string {
-    switch (this.BASE_URL) {
-      case 'https://na1.api.riotgames.com':
-        return 'NA1';
-      case 'https://eun1.api.riotgames.com':
-        return 'EUN1';
-      case 'https://la1.api.riotgames.com':
-        return 'LA1';
-      case 'https://kr.api.riotgames.com':
-        return 'KR';
-      case 'https://oc1.api.riotgames.com':
-        return 'OC1';
-      case 'https://ru.api.riotgames.com':
-        return 'RU';
-      case 'https://jp1.api.riotgames.com':
-        return 'JP1';
-      case 'https://br1.api.riotgames.com':
-        return 'BR1';
-      case 'https://tr1.api.riotgames.com':
-        return 'TR1';
-      case 'https://euw1.api.riotgames.com':
-        return 'EUW1';
-      case 'https://la2.api.riotgames.com':
-        return 'LA2';
-      default:
-        return;
-    }
-
+  getShortRegion(): Observable<string> {
+    return this.http.get(Global.API_ENDPOINTS.REGION + 'GetShortRegion', { responseType: 'text' });
   }
 
   getLongRegion(shortRegion: string): string {
@@ -67,53 +45,9 @@ export class RegionService {
     }
   }
 
-  setRegion(region: string): string {
-    switch (region) {
-      case 'North America':
-        this.BASE_URL = 'https://na1.api.riotgames.com';
-        return 'NA1';
-      case 'Europe Nordic & East':
-        this.BASE_URL = 'https://eun1.api.riotgames.com';
-        return 'EUN1';
-        break;
-      case 'LAN':
-        this.BASE_URL = 'https://la1.api.riotgames.com';
-        return 'LA1';
-        break;
-      case 'Korea':
-        this.BASE_URL = 'https://kr.api.riotgames.com';
-        return 'KR';
-        break;
-      case 'Oceania':
-        this.BASE_URL = 'https://oc1.api.riotgames.com';
-        return 'OC1';
-        break;
-      case 'Russia':
-        this.BASE_URL = 'https://ru.api.riotgames.com';
-        return 'RU';
-        break;
-      case 'Japan':
-        this.BASE_URL = 'https://jp1.api.riotgames.com';
-        return 'JP1';
-        break;
-      case 'Brazil':
-        this.BASE_URL = 'https://br1.api.riotgames.com';
-        return 'BR1';
-        break;
-      case 'Turkey':
-        this.BASE_URL = 'https://tr1.api.riotgames.com';
-        return 'TR1';
-        break;
-      case 'Europe West':
-        this.BASE_URL = 'https://euw1.api.riotgames.com';
-        return 'EUW1';
-        break;
-      case 'LAS':
-        this.BASE_URL = 'https://la2.api.riotgames.com';
-        return 'LA2';
-        break;
-      default:
-        return;
-    }
+  setRegion(region: string): any {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const options = { headers };
+    return this.http.post(Global.API_ENDPOINTS.REGION + 'SetRegion', JSON.stringify(region), options);
   }
 }

@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import SummonerModel from '../models/summoner-model';
 import { BehaviorSubject } from 'rxjs';
 import * as global from '../data/global';
+import { Global } from '../data/global';
 import { RegionService } from './region.service';
 
 @Injectable({
@@ -15,13 +16,19 @@ export class SummonerService {
     constructor(private http: HttpClient, private region: RegionService) { }
 
     getSummoner(summonerName: string): any {
-        // tslint:disable-next-line: max-line-length
-        return this.http.get(this.region.BASE_URL + '/lol/summoner/v4/summoners/by-name/' + summonerName + '?api_key=' + global.API_KEY);
+        return this.http.get(Global.API_ENDPOINTS.SUMMONER + 'GetSummoner', {
+            params: {
+              summonerName
+            }
+        });
     }
 
-    getMatchHistory(accountID: number): any {
-        // tslint:disable-next-line: max-line-length
-        return this.http.get(this.region.BASE_URL + '/lol/match/v4/matchlists/by-account/' + accountID + '?api_key=' + global.API_KEY);
+    getMatchHistory(accountID: string): any {
+        return this.http.get(Global.API_ENDPOINTS.SUMMONER + 'GetMatchHistory', {
+            params: {
+                accountID
+            }
+        });
     }
 
     loadChampionDetails(): any {
