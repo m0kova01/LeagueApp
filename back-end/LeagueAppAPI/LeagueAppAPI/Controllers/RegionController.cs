@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -12,46 +13,65 @@ namespace LeagueAppAPI.Controllers
     public class RegionController : ControllerBase
     {
         [HttpPost("SetRegion")]
-        public string SetRegion([FromBody] string region)
+        public ExpandoObject SetRegion([FromBody] string region)
         {
+            dynamic obj = new ExpandoObject();
+
+            string shortRegion;
+
             switch (region)
             {
                 case "North America":
                     Global.Global.BASE_URL = "https://na1.api.riotgames.com";
-                    return "NA1";
+                    shortRegion = "NA1";
+                    break;
                 case "Europe Nordic & East":
                     Global.Global.BASE_URL = "https://eun1.api.riotgames.com";
-                    return "EUN1";
+                    shortRegion = "EUN1";
+                    break;
                 case "LAN":
                     Global.Global.BASE_URL = "https://la1.api.riotgames.com";
-                    return "LA1";
+                    shortRegion = "LA1";
+                    break;
                 case "Korea":
                     Global.Global.BASE_URL = "https://kr.api.riotgames.com";
-                    return "KR";
+                    shortRegion = "KR";
+                    break;
                 case "Oceania":
                     Global.Global.BASE_URL = "https://oc1.api.riotgames.com";
-                    return "OC1";
+                    shortRegion = "OC1";
+                    break;
                 case "Russia":
                     Global.Global.BASE_URL = "https://ru.api.riotgames.com";
-                    return "RU";
+                    shortRegion = "RU";
+                    break;
                 case "Japan":
                     Global.Global.BASE_URL = "https://jp1.api.riotgames.com";
-                    return "JP1";
+                    shortRegion = "JP1";
+                    break;
                 case "Brazil":
                     Global.Global.BASE_URL = "https://br1.api.riotgames.com";
-                    return "BR1";
+                    shortRegion = "BR1";
+                    break;
                 case "Turkey":
                     Global.Global.BASE_URL = "https://tr1.api.riotgames.com";
-                    return "TR1";
+                    shortRegion = "TR1";
+                    break;
                 case "Europe West":
                     Global.Global.BASE_URL = "https://euw1.api.riotgames.com";
-                    return "EUW1";
+                    shortRegion = "EUW1";
+                    break;
                 case "LAS":
                     Global.Global.BASE_URL = "https://la2.api.riotgames.com";
-                    return "LA2";
+                    shortRegion = "LA2";
+                    break;
                 default:
-                    return "Error setting region";
+                    shortRegion = "Error setting region";
+                    break;
             }
+            obj.ShortRegion = shortRegion;
+
+            return obj;
         }
 
         [HttpGet("GetShortRegion")]
